@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\junyu\\FnbReservationAPI\\FnbReservationAPI.csproj": {}
+    "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\junyu\\FnbReservationAPI\\FnbReservationAPI.csproj": {
+    "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\junyu\\FnbReservationAPI\\FnbReservationAPI.csproj",
+        "projectUniqueName": "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
         "projectName": "FnbReservationAPI",
-        "projectPath": "C:\\Users\\junyu\\FnbReservationAPI\\FnbReservationAPI.csproj",
+        "projectPath": "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
         "packagesPath": "C:\\Users\\junyu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\junyu\\FnbReservationAPI\\obj\\",
+        "outputPath": "C:\\F-B-Reservation-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\junyu\\AppData\\Roaming\\NuGet\\NuGet.Config"
