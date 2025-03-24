@@ -1,0 +1,15 @@
+meta {
+  name: Get All User
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:5092/api/users/{{role}}/get-all
+  body: none
+  auth: none
+}
+
+headers {
+  role: Admin
+}

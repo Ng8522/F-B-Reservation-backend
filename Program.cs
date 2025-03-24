@@ -1,67 +1,42 @@
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
+using FnbReservationAPI.src;
+using FnbReservationAPI.src.features.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+// Add services to the container
 builder.Services.AddControllers();
-builder.Services.AddAuthorization();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAllOrigins",
-        policy =>
-        {
-            policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
-});
+var connectionString = builder.Configuration.GetConnectionString("MariaDBConnection") 
+    ?? throw new InvalidOperationException("Connection string 'MariaDBConnection' not found.");
 
-string? connectionString = builder.Configuration.GetConnectionString("MariaDbConnection");
+builder.Services.AddDbContext<AppDBContext>(options =>
+    options.UseMySQL(connectionString));
 
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new InvalidOperationException("Database connection string is missing in appsettings.json!");
-}
 
-try
-{
-    using (var connection = new MySqlConnection(connectionString))
-    {
-        connection.Open();
-        Console.WriteLine("Database connected!");
-
-        string sqlFilePath = Path.Combine(AppContext.BaseDirectory, "maria", "migrations", "000_implement_tables.sql");
-        string sqlScript = File.ReadAllText(sqlFilePath);
-
-        using (var command = new MySqlCommand(sqlScript, connection))
-        {
-            command.ExecuteNonQuery();
-            Console.WriteLine("SQL script executed successfully!");
-        }
-
-        connection.Close();
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine("Error executing SQL script: " + ex.Message);
-}
+// Register repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+// Ensure database is created
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDBContext>();
+    dbContext.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();
-
-
-app.UseCors("AllowAllOrigins");
-
+app.UseRouting();
 app.UseAuthorization();
+app.MapControllers();
 app.Run();
-
