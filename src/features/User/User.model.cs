@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
-namespace FnbReservationAPI.src.Models
+namespace FnbReservationAPI.src.features.User
 {
     public class User
     {

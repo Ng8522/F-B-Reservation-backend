@@ -82,12 +82,11 @@ CREATE TABLE IF NOT EXISTS blacklist (
     status CHAR(20) NOT NULL,
     created_by CHAR(36) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by CHAR(36) NOT NULL,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     updated_by CHAR(36) NOT NULL,
 );
 
--- Notifications Table (For WhatsApp notifications)
+-- Notifications Table (For WhatsApp notifications) Hold first not sure need or not
 CREATE TABLE IF NOT EXISTS notifications (
     id CHAR(36) PRIMARY KEY,
     user_id CHAR(36) NOT NULL,
