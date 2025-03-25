@@ -1010,6 +1010,7 @@
       },
       "System.Diagnostics.DiagnosticSource/8.0.1": {},
       "System.Diagnostics.EventLog/8.0.0": {},
+<<<<<<< HEAD
       "System.Formats.Asn1/9.0.3": {
         "runtime": {
           "lib/net9.0/System.Formats.Asn1.dll": {
@@ -1019,6 +1020,10 @@
         }
       },
       "System.IdentityModel.Tokens.Jwt/8.0.1": {
+=======
+      "System.Formats.Asn1/9.0.3": {},
+      "System.IdentityModel.Tokens.Jwt/6.35.0": {
+>>>>>>> 74320a0fb2eb4b72f548d1def508d3e3173b29e6
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "8.0.1",
           "Microsoft.IdentityModel.Tokens": "8.0.1"
@@ -1146,14 +1151,7 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
       },
-      "System.Text.Json/9.0.3": {
-        "runtime": {
-          "lib/net9.0/System.Text.Json.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.325.11113"
-          }
-        }
-      },
+      "System.Text.Json/9.0.3": {},
       "System.Threading.Channels/7.0.0": {},
       "System.Threading.Tasks/4.3.0": {
         "dependencies": {
