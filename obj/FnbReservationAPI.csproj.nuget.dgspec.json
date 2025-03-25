@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Adm\\Documents\\GitHub\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {}
+    "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Adm\\Documents\\GitHub\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {
+    "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Adm\\Documents\\GitHub\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
+        "projectUniqueName": "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
         "projectName": "FnbReservationAPI",
-        "projectPath": "C:\\Users\\Adm\\Documents\\GitHub\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
-        "packagesPath": "C:\\Users\\Adm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Adm\\Documents\\GitHub\\F-B-Reservation-backend\\obj\\",
+        "projectPath": "C:\\F-B-Reservation-backend\\FnbReservationAPI.csproj",
+        "packagesPath": "C:\\Users\\junyu\\.nuget\\packages\\",
+        "outputPath": "C:\\F-B-Reservation-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Adm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\junyu\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -66,7 +66,17 @@
               "target": "Package",
               "version": "[9.0.3, )"
             },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.3, )"
             },
@@ -106,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

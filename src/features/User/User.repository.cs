@@ -32,7 +32,7 @@ namespace FnbReservationAPI.src.features.User
 
         public async Task<List<User>> GetAllUsersByRoleAsync(string role, int pageNumber, int pageSize)
         {
-            return await _context.Users
+            return await _context.Users.OrderBy(u => u.Id)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
