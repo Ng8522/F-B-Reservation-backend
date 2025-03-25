@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using FnbReservationAPI.src.features.User;
+using FnbReservationAPI.src.features.Jwt;
 using FnbReservationAPI.src.utils;
 using Microsoft.AspNetCore.Identity.Data;
 
@@ -7,9 +8,16 @@ namespace FnbReservationAPI.src.features.User
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController(IUserRepository userRepository) : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IUserRepository _userRepository = userRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IJwtService _jwtService;
+
+        public UserController(IUserRepository userRepository, IJwtService jwtService)
+        {
+            _userRepository = userRepository;
+            _jwtService = jwtService;
+        }
 
         [HttpGet("{role}/get-all")]
         public async Task<ActionResult<object>> GetAllUsersByRole([FromRoute] string role, [FromQuery] int pageNumber, [FromQuery] int pageSize)
@@ -155,29 +163,13 @@ namespace FnbReservationAPI.src.features.User
                     });
                 }
 
-                var token = Token.GenerateToken(user.Id.ToString(), user.Role);
-
-                // Set cookie options
-                var cookieOptions = new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTime.UtcNow.AddHours(24)
-                };
-
-                // Add the token to cookies
-                Response.Cookies.Append("auth_token", token, cookieOptions);
+                var token = _jwtService.GenerateToken(user);
 
                 return Ok(new
                 {
                     success = true,
                     message = "Login successful.",
-                    data = new
-                    {
-                        user = user,
-                        token = token
-                    }
+                    token = token
                 });
             }
             catch (Exception ex)
@@ -241,5 +233,60 @@ namespace FnbReservationAPI.src.features.User
                 message = "Logged out successfully."
             });
         }
+
+        [HttpGet("self")]
+        public async Task<ActionResult<User>> GetSelfUser()
+        {
+            try
+            {
+                if (!Request.Headers.TryGetValue("Authorization", out var authHeader) || string.IsNullOrEmpty(authHeader))
+                {
+                    return Unauthorized(new
+                    {
+                        success = false,
+                        message = "No authorization token provided."
+                    });
+                }
+
+                var token = authHeader.ToString().Replace("Bearer ", "").Trim();
+
+                if (string.IsNullOrEmpty(token))
+                {
+                    return Unauthorized(new
+                    {
+                        success = false,
+                        message = "Invalid authorization token."
+                    });
+                }
+
+                var user = await _userRepository.GetUserBySelfAsync(token);
+
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        success = false,
+                        message = "User not found."
+                    });
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "User retrieved successfully.",
+                    data = user
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "An error occurred while fetching user details.",
+                    error = ex.Message
+                });
+            }
+        }
+
     }
 }

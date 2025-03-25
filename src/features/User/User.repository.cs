@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FnbReservationAPI.src;
 using FnbReservationAPI.src.utils;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace FnbReservationAPI.src.features.User
 {
@@ -20,8 +22,8 @@ namespace FnbReservationAPI.src.features.User
         public async Task<User?> GetUserBySearchAsync(string searchQuery, string role)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(u => 
-                    u.Name.Contains(searchQuery) || 
+                .FirstOrDefaultAsync(u =>
+                    u.Name.Contains(searchQuery) ||
                     u.Email.Contains(searchQuery) ||
                     u.ContactNumber.Contains(searchQuery) &&
                     u.Role == role
@@ -73,10 +75,21 @@ namespace FnbReservationAPI.src.features.User
 
         public async Task<User?> GetUserBySelfAsync(string token)
         {
-            // return await _context.Users.FirstOrDefaultAsync(u => u.Token == token);
-            return null;
+            var handler = new JwtSecurityTokenHandler();
+
+            if (handler.ReadToken(token) is not JwtSecurityToken jwtToken)
+                return null;
+
+            var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+                return null;
+
+            string userId = userIdClaim.Value;
+
+            // Query the user from the database
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
         }
-        
+
         public async Task<bool> DeactiveUserAsync(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
