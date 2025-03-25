@@ -47,7 +47,7 @@ namespace FnbReservationAPI.src.features.User
                     message = "Users retrieved successfully.",
                     data = new
                     {
-                        items = users,
+                        users = users,
                         pageNumber = pageNumber,
                         pageSize = pageSize,
                         totalCount = users.Count,

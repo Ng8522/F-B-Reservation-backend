@@ -27,14 +27,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"] ?? ""))
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"] ?? "")),
+            RoleClaimType = ClaimTypes.Role
         };
     });
 
 
 
 
-var connectionString = builder.Configuration.GetConnectionString("MariaDBConnection") 
+var connectionString = builder.Configuration.GetConnectionString("MariaDBConnection")
     ?? throw new InvalidOperationException("Connection string 'MariaDBConnection' not found.");
 
 builder.Services.AddDbContext<AppDBContext>(options =>
