@@ -1,0 +1,15 @@
+meta {
+  name: Get User by Token
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:5092/api/users/self
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3Njg3NThkNS0xOTYyLTRmYjctYTgxMy1kMTEyOWM0NWQzNTAiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImViMDM4M2VhLWQxODMtNGYzOS1hOWIyLWI4ZWY2NTRmZTVjZiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoianVueXU4NTIyQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJOZyBKdW4gWXUiLCJleHAiOjE3NDI5NDk1MjcsImlzcyI6IkZuYlJlc2VydmF0aW9uQVBJIiwiYXVkIjoiRm5iUmVzZXJ2YXRpb25DbGllbnQifQ.7sC_1gGG6jIGsyPLHLkj-_aN-_Sz4WFR5IjG_if6Igo
+}

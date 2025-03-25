@@ -1,0 +1,22 @@
+meta {
+  name: Register Admin User
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:5092/api/users/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Ng Jun Yu",
+    "contactNumber": "01159874606",
+    "email": "junyu8522@gmail.com",
+    "password": "123123",
+    "role": "Admin",
+    "status": "Active"
+  }
+}

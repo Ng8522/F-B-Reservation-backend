@@ -1,0 +1,20 @@
+meta {
+  name: Get All User
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:5092/api/users/{{role}}/get-all?pageNumber=1&pageSize=10
+  body: none
+  auth: none
+}
+
+params:query {
+  pageNumber: 1
+  pageSize: 10
+}
+
+headers {
+  role: Admin
+}
