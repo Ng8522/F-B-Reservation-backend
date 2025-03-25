@@ -3,7 +3,7 @@ namespace FnbReservationAPI.src.features.User
     public interface IUserRepository
     {
         Task<User?> GetUserBySearchAsync(string searchQuery, string role);
-        Task<List<User>> GetAllUsersByRoleAsync(string role, int pageNumber, int pageSize);
+        Task<List<UserDto>> GetAllUsersByRoleAsync(string role, int pageNumber, int pageSize);
         Task<User?> RegisterUserAsync(User user);
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> UpdateUserAsync(Guid id, User user);
