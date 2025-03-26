@@ -6,7 +6,7 @@ meta {
 
 get {
   url: http://localhost:5092/api/users/{{role}}/get-all?pageNumber=1&pageSize=10
-  body: none
+  body: json
   auth: none
 }
 
@@ -15,6 +15,6 @@ params:query {
   pageSize: 10
 }
 
-headers {
+vars:pre-request {
   role: Admin
 }

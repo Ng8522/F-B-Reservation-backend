@@ -8,7 +8,7 @@ namespace FnbReservationAPI.src.features.User
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> UpdateUserAsync(Guid id, User user);
         Task<bool> UserExistsAsync(string email, string contactNumber);
-        Task<User?> GetUserBySelfAsync(string token);
+        Task<UserDto?> GetUserBySelfAsync(string token);
         Task<bool> DeactiveUserAsync(Guid id);
     }
 }

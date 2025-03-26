@@ -32,10 +32,8 @@ namespace FnbReservationAPI.src.features.User
 
         public async Task<List<UserDto>> GetAllUsersByRoleAsync(string role, int pageNumber, int pageSize)
         {
-            return await _context.Users.Where(u => u.Role == role)
+            return await _context.Users.Where(u => u.Role.ToLower() == role.ToLower())
                 .OrderBy(u => u.Id)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .Select(u => new UserDto
                 {
                     Id = u.Id,
@@ -87,7 +85,7 @@ namespace FnbReservationAPI.src.features.User
             return await _context.Users.AnyAsync(u => u.Email == email || u.ContactNumber == contactNumber);
         }
 
-        public async Task<User?> GetUserBySelfAsync(string token)
+        public async Task<UserDto?> GetUserBySelfAsync(string token)
         {
             var handler = new JwtSecurityTokenHandler();
 
@@ -100,8 +98,26 @@ namespace FnbReservationAPI.src.features.User
 
             string userId = userIdClaim.Value;
 
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+
+            // If user not found, return null
+            if (user == null)
+                return null;
+
             // Query the user from the database
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            return new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                ContactNumber = user.ContactNumber,
+                Role = user.Role,
+                Status = user.Status,
+                CreateBy = user.CreateBy,
+                CreatedAt = user.CreatedAt,
+                UpdateBy = user.UpdateBy,
+                UpdatedAt = user.UpdatedAt
+            };
         }
 
         public async Task<bool> DeactiveUserAsync(Guid id)
